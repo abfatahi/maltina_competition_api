@@ -1,7 +1,6 @@
 import express from 'express';
 import { body } from 'express-validator';
 import Controller from '../../controllers/Participant/index.js';
-// import { SchoolMiddleware } from '../../middlewares/index.js';
 
 const ParticipantController = Controller();
 

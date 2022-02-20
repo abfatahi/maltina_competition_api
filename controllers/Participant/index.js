@@ -10,6 +10,7 @@ export default () => {
         return res.status(400).json({ errors: errors.array() });
 
       const tokenData = jwt.verify(req.params.token, process.env.JWT_SECRET);
+
       if (tokenData.exp < new Date().getTime() / 1000)
         return res.status(400).json({ message: 'Link expired' });
 

@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/abfatahi/maltina_competition_api#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "express": "^4.17.3",
     "express-rate-limit": "^6.3.0",
