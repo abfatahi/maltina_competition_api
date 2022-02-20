@@ -93,23 +93,22 @@ export default () => {
       let { page } = req.query;
 
       if (!page) {
-        parseInt(page) = 1;
+        page = 1;
       }
 
       const total = await SchoolModel.find();
       const schools = await SchoolModel.find()
-        .sort({ _id: 1 }) 
+        .sort({ _id: 1 })
         .limit(10)
-        .skip(page > 1 && page * 10);
+        .skip(page > 1 && (parseInt(page) - 1) * 10);
 
       return res.status(200).json({
         message: 'success',
         total: total.length,
-        page:parseInt(page),
+        page: parseInt(page),
         perPage: 10,
         data: { schools },
       });
-
     } catch (error) {
       console.log(error);
       return res.status(500).json({ message: 'Internal Server Error' });
@@ -122,12 +121,27 @@ export default () => {
       if (!errors.isEmpty())
         return res.status(400).json({ errors: errors.array() });
 
-      const Participants = await ParticipantModel.find();
+      let { page } = req.query;
 
-      return res
-        .status(200)
-        .json({ message: 'success', data: { Participants } });
+      if (!page) {
+        page = 1;
+      }
+
+      const total = await ParticipantModel.find();
+      const participants = await ParticipantModel.find()
+        .sort({ _id: 1 })
+        .limit(10)
+        .skip(page > 1 && (parseInt(page) - 1) * 10);
+
+      return res.status(200).json({
+        message: 'success',
+        total: total.length,
+        page: parseInt(page),
+        perPage: 10,
+        data: { participants },
+      });
     } catch (error) {
+      console.log(error);
       return res.status(500).json({ message: 'Internal Server Error' });
     }
   };

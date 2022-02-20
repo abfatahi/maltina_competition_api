@@ -13,9 +13,9 @@ export default () => {
 
       if (tokenData.exp < new Date().getTime() / 1000)
         return res.status(400).json({ message: 'Link expired' });
-
+      console.log('Hello');
       const School = await SchoolModel.findOne({ email: tokenData.email });
-
+      console.log(School);
       const { participants } = req.body;
 
       participants.forEach((participant) => {
@@ -41,6 +41,7 @@ export default () => {
         },
       });
     } catch (error) {
+      console.log(error);
       return res.status(500).json({ message: 'Internal Server Error' });
     }
   };
