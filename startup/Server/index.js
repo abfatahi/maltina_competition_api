@@ -10,13 +10,15 @@ import { ErrorMiddleware } from '../../middlewares/index.js';
 import { Database } from '../../database/index.js';
 
 const app = express();
-
+let corsOption = {
+  origin: ['http://localhost:5555/', 'http://localhost:3000/'],
+};
 export default () => {
   // Database Connection
   Database();
 
   // Server Setup
-  app.use(cors());
+  app.use(cors(corsOption));
 
   app.use(helmet());
 

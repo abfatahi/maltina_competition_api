@@ -22,7 +22,13 @@ export default () => {
       //convert Email to lowercase
       const new_email = email.toLowerCase();
 
+      //Generate Unique ID
+      const allSchools = await SchoolModel.find();
+      const schoolId = `MSG2022-00000${allSchools.length + 1}`;
+
+      //Register New School
       const newSchool = new SchoolModel({
+        schoolId,
         name,
         email: new_email,
         address,
@@ -39,6 +45,7 @@ export default () => {
       return res.status(200).json({
         status: 'success',
         data: {
+          schoolId,
           name,
           new_email,
           address,

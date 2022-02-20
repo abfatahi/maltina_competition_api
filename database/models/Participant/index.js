@@ -1,24 +1,18 @@
 import mongoose from 'mongoose';
 
-const SchoolSchema = new mongoose.Schema(
+const ParticipantSchema = new mongoose.Schema(
   {
-    schoolId: {
-      type: String,
-      unique: true,
-    },
     name: {
       type: String,
       trim: true,
     },
-    address: {
-      type: String,
-      trim: true,
+    events: {
+      type: Array,
+      default: [],
     },
-    email: {
+    class: {
       type: String,
       trim: true,
-      lowercase: true,
-      unique: true,
     },
     phoneNumber: {
       type: String,
@@ -48,6 +42,6 @@ const SchoolSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const SchoolModel = mongoose.model('SchoolModel', SchoolSchema);
+const ParticipantModel = mongoose.model('ParticipantModel', ParticipantSchema);
 
-export default SchoolModel;
+export default ParticipantModel;

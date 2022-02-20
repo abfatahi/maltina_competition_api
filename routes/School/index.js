@@ -15,7 +15,8 @@ router.post(
       .bail()
       .isString()
       .withMessage('Failed! School name must be a string')
-      .trim(),
+      .trim()
+      .custom((name) => SharedMiddleware.isUniqueName(name)),
     body('address', 'Failed! School address field cannot be blank')
       .exists()
       .bail()
@@ -25,6 +26,14 @@ router.post(
       .isEmail()
       .withMessage('Invalid Email format')
       .custom((email) => SharedMiddleware.isUniqueEmail(email)),
+    body('phoneNumber', 'Failed! Phone number cant be blank')
+      .exists()
+      .trim()
+      .isLength({ min: 8, max: 15 })
+      .withMessage('Fullname should have 4 to 20 characters')
+      .custom((phoneNumber) =>
+        SharedMiddleware.isUniquePhoneNumber(phoneNumber)
+      ),
     body('facebookId', 'Failed! School Facebook Id field cannot be blank')
       .exists()
       .bail()
