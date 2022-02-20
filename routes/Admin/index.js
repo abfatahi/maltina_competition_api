@@ -1,6 +1,7 @@
 import express from 'express';
-import { body } from 'express-validator';
+import { body, header } from 'express-validator';
 import Controller from '../../controllers/Admin/index.js';
+import { AdminMiddleware } from '../../middlewares/index.js';
 
 const AdminController = Controller();
 
@@ -25,6 +26,34 @@ router.post(
       .withMessage('Password cant be empty'),
   ],
   AdminController.login
+);
+
+router.get(
+  '/schools',
+  [
+    header(
+      'Authorization',
+      'Unauthorized! Sign in to your account for authorization'
+    )
+      .exists()
+      .bail()
+      .custom((value) => AdminMiddleware.isValidAdminToken(value)),
+  ],
+  AdminController.getAllSchools
+);
+
+router.get(
+  '/participants',
+  [
+    header(
+      'Authorization',
+      'Unauthorized! Sign in to your account for authorization'
+    )
+      .exists()
+      .bail()
+      .custom((value) => AdminMiddleware.isValidAdminToken(value)),
+  ],
+  AdminController.getAllParticipants
 );
 
 export default router;

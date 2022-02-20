@@ -1,7 +1,11 @@
 import bcrypt from 'bcrypt';
 import { validationResult } from 'express-validator';
 import jwt from 'jsonwebtoken';
-import { AdminModel } from '../../database/models/index.js';
+import {
+  AdminModel,
+  SchoolModel,
+  ParticipantModel,
+} from '../../database/models/index.js';
 
 export default () => {
   const register = async (req, res) => {
@@ -63,7 +67,7 @@ export default () => {
       const token = jwt.sign({ email: Admin.email }, process.env.JWT_SECRET, {
         expiresIn: '1d',
       });
-      
+
       const { name, role } = Admin;
 
       return res.status(200).json({
@@ -80,8 +84,40 @@ export default () => {
     }
   };
 
+  const getAllSchools = async (req, res) => {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty())
+        return res.status(400).json({ errors: errors.array() });
+
+      const Schools = await SchoolModel.find();
+
+      return res.status(200).json({ message: 'success', data: { Schools } });
+    } catch (error) {
+      return res.status(500).json({ message: 'Internal Server Error' });
+    }
+  };
+
+  const getAllParticipants = async (req, res) => {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty())
+        return res.status(400).json({ errors: errors.array() });
+
+      const Participants = await ParticipantModel.find();
+
+      return res
+        .status(200)
+        .json({ message: 'success', data: { Participants } });
+    } catch (error) {
+      return res.status(500).json({ message: 'Internal Server Error' });
+    }
+  };
+
   return {
     register,
     login,
+    getAllSchools,
+    getAllParticipants,
   };
 };
