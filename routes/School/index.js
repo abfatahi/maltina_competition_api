@@ -1,6 +1,6 @@
 import express from 'express';
 import { body } from 'express-validator';
-import { SharedMiddleware } from '../../middlewares/index.js';
+import { SchoolMiddleware } from '../../middlewares/index.js';
 import Controller from '../../controllers/School/index.js';
 
 const SchoolController = Controller();
@@ -16,7 +16,7 @@ router.post(
       .isString()
       .withMessage('Failed! School name must be a string')
       .trim()
-      .custom((name) => SharedMiddleware.isUniqueName(name)),
+      .custom((name) => SchoolMiddleware.isUniqueName(name)),
     body('address', 'Failed! School address field cannot be blank')
       .exists()
       .bail()
@@ -25,14 +25,14 @@ router.post(
       .exists()
       .isEmail()
       .withMessage('Invalid Email format')
-      .custom((email) => SharedMiddleware.isUniqueEmail(email)),
+      .custom((email) => SchoolMiddleware.isUniqueEmail(email)),
     body('phoneNumber', 'Failed! Phone number cant be blank')
       .exists()
       .trim()
       .isLength({ min: 8, max: 15 })
       .withMessage('Fullname should have 4 to 20 characters')
       .custom((phoneNumber) =>
-        SharedMiddleware.isUniquePhoneNumber(phoneNumber)
+        SchoolMiddleware.isUniquePhoneNumber(phoneNumber)
       ),
     body('facebookId', 'Failed! School Facebook Id field cannot be blank')
       .exists()

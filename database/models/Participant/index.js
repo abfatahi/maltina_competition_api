@@ -6,35 +6,19 @@ const ParticipantSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+    schoolId: {
+      type: String,
+      trim: true,
+    },
     events: {
       type: Array,
       default: [],
     },
-    class: {
+    participantClass: {
       type: String,
       trim: true,
     },
-    phoneNumber: {
-      type: String,
-      trim: true,
-    },
-    facebookId: {
-      type: String,
-      trim: true,
-    },
-    motto: {
-      type: String,
-      trim: true,
-    },
-    yearFounded: {
-      type: String,
-      trim: true,
-    },
-    teamName: {
-      type: String,
-      trim: true,
-    },
-    gameMaster: {
+    dateOfBirth: {
       type: String,
       trim: true,
     },

@@ -1,3 +1,4 @@
+import jwt from 'jsonwebtoken';
 import { validationResult } from 'express-validator';
 import { SchoolModel } from '../../database/models/index.js';
 
@@ -39,8 +40,12 @@ export default () => {
         teamName,
         gameMaster,
       });
-
       newSchool.save();
+
+      // Generate customer token
+      const token = jwt.sign({ email: new_email }, process.env.JWT_SECRET, {
+        expiresIn: '5d',
+      });
 
       return res.status(200).json({
         status: 'success',
@@ -56,6 +61,7 @@ export default () => {
           teamName,
           gameMaster,
         },
+        token,
       });
     } catch (error) {
       return res.status(500).json({ message: 'Internal Server Error' });
