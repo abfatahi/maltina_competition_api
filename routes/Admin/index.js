@@ -1,5 +1,5 @@
 import express from 'express';
-import { body, header } from 'express-validator';
+import { body, header, param } from 'express-validator';
 import Controller from '../../controllers/Admin/index.js';
 import { AdminMiddleware } from '../../middlewares/index.js';
 
@@ -54,6 +54,21 @@ router.get(
       .custom((value) => AdminMiddleware.isValidAdminToken(value)),
   ],
   AdminController.getAllParticipants
+);
+
+router.get(
+  '/schools/:schoolId',
+  [
+    header(
+      'Authorization',
+      'Unauthorized! Sign in to your account for authorization'
+    )
+      .exists()
+      .bail()
+      .custom((value) => AdminMiddleware.isValidAdminToken(value)),
+    param('schoolId', 'schoolId! Email cant be blank').exists().bail(),
+  ],
+  AdminController.getSchool
 );
 
 export default router;

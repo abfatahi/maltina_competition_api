@@ -44,6 +44,9 @@ const SchoolSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+    inviteToken: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

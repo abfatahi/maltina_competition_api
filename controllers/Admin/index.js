@@ -6,6 +6,7 @@ import {
   SchoolModel,
   ParticipantModel,
 } from '../../database/models/index.js';
+import School from '../../middlewares/School/index.js';
 
 export default () => {
   const register = async (req, res) => {
@@ -141,6 +142,28 @@ export default () => {
         data: { participants },
       });
     } catch (error) {
+      return res.status(500).json({ message: 'Internal Server Error' });
+    }
+  };
+
+  const getSchool = async (req, res) => {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty())
+        return res.status(400).json({ errors: errors.array() });
+
+      const school = await SchoolModel.findOne({
+        schoolId: req.params.schoolId,
+      });
+      const participants = await ParticipantModel.find({
+        schoolId: School.schoolId,
+      });
+      console.log(school, participants);
+      return res.status(200).json({
+        message: 'success',
+        data: { school, participants },
+      });
+    } catch (error) {
       console.log(error);
       return res.status(500).json({ message: 'Internal Server Error' });
     }
@@ -151,5 +174,6 @@ export default () => {
     login,
     getAllSchools,
     getAllParticipants,
+    getSchool,
   };
 };

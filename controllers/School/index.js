@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import { v4 as uuidv4 } from 'uuid';
 import { validationResult } from 'express-validator';
 import { SchoolModel } from '../../database/models/index.js';
 
@@ -39,6 +40,7 @@ export default () => {
         yearFounded,
         teamName,
         gameMaster,
+        inviteToken: uuidv4(),
       });
       newSchool.save();
 
