@@ -1,0 +1,56 @@
+{
+  "name": "maltina_competition_api",
+  "version": "1.0.0",
+  "description": "Maltina competition",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon -r dotenv/config index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abfatahi/maltina_competition_api.git"
+  },
+  "keywords": [
+    "NodeJS",
+    "ExpressJS",
+    "MongoDB",
+    "Bcrypt"
+  ],
+  "author": "Abdulfatahi Ishaq",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/abfatahi/maltina_competition_api/issues"
+  },
+  "homepage": "https://github.com/abfatahi/maltina_competition_api#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
+    "express-rate-limit": "^6.3.0",
+    "express-validator": "^6.14.0",
+    "helmet": "^5.0.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.2.2",
+    "nodemailer": "^6.7.2",
+    "uuid": "^8.3.2",
+    "v-response": "^1.1.0",
+    "winston": "^3.6.0"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.0",
+    "nodemon": "^2.0.15"
+  },
+  "nodemonConfig": {
+    "restartable": "yes",
+    "ignore": [
+      "node_modules/**/node_modules"
+    ],
+    "delay": "1500",
+    "env": {
+      "NODE_ENV": "development",
+      "PORT": 4000
+    }
+  }
+}
